@@ -1,72 +1,54 @@
 import React from "react";
 
 const VARIANT_STYLES = {
-    filled: (props) => ({
-        color: props.titleColor ? props.titleColor : "#444",
-        backgroundColor: props.color,
-        borderColor: props.color,
-        borderStyle: "solid",
-        borderWidth: 2
-    }),
-    ghost: (props) => ({
-        backgroundColor: "transparent",
-        borderColor: "transparent",
-        color: props.color,
-        borderWidth: 2
-    }),
-    outline: (props) => ({
-        backgroundColor: "transparent",
-        borderColor: props.color,
-        borderStyle: "solid",
-        color: props.color,
-        borderWidth: 2
-    })
+  filled: ({ titleColor, color }) => ({
+    color: titleColor || "#FFF",
+    backgroundColor: color,
+    borderColor: color,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+    display: "flex",
+    border: "none",
+    fontSize: 30,
+    padding: "20px 30px",
+    cursor: "pointer",
+  }),
+  ghost: ({ color }) => ({
+    backgroundColor: "transparent",
+    borderColor: "transparent",
+    color,
+    borderWidth: 2,
+    cursor: "pointer",
+  }),
+  outline: ({ color }) => ({
+    backgroundColor: "transparent",
+    borderColor: color,
+    borderStyle: "solid",
+    color,
+    borderWidth: 2,
+    cursor: "pointer",
+  }),
 };
 
-const Button = (
-    {
-        variant = "filled",
-        color = "#00c2a9",
-        title,
-        style,
-        icon,
-        ...props
-    }
-) => {
-        return <button
-            style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                padding: "10px 20px",
-                borderRadius: 6,
-                outline: "none",
-                ...VARIANT_STYLES[variant]({
-                    ...props,
-                    color
-                }),
-                ...style
-            }}
-            {...props}
-        >
-            {
-                icon ?
-                    icon
-                :
-                    null
-            }
-            {
-                title ?
-                    <span
-                        style={{
-                            marginLeft: icon ? 5 : 0
-                        }}
-                    >
-                        {title}
-                    </span>
-                :
-                    null
-            }
-        </button>;
+const Button = ({ variant = "filled", color = "#7fa19f", title, style, icon, ...props }) => {
+  return (
+    <button
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        borderRadius: 6,
+        outline: "none",
+        minWidth: title ? "auto" : "60px",
+        ...VARIANT_STYLES[variant]({ color }),
+        ...style,
+      }}
+      {...props}
+    >
+      {title && <span style={{ marginLeft: icon ? 5 : 0 }}>{title}</span>}
+    </button>
+  );
 };
+
 export default Button;
